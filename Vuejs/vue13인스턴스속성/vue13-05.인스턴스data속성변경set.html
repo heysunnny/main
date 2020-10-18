@@ -44,7 +44,7 @@
             this.$set(this.arr, 0, 300);
 
         3. splice()함수를 사용하여 변경한다.
-            this.arr.splice(0,1,500);
+            this.arr.splice(0,2,500);
 
         4. spread 연산자 재할당 ==> 배열 사본을 만들어 수정한 뒤 재할당. ES6 에서만 가능.
             var arr_copy=[...this.arr,70];
@@ -69,5 +69,35 @@
 
 </html>
 
-<!-- vue 스크립트 플러그인 임포트 -->
-
+<!-- vue 플러그인 임포트 -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            val: null,
+            i: null, //v-bind 뒤에 오는 애를 변수로 지정
+            arr: [1, 2, 3, 4, 5],
+        },
+        methods: {
+            change1: function (event) {
+                // this.$data.arr[0] = 100;
+                // console.log(this.$data.arr); // [1, 2, 3, 4, 5]
+                // debugger;
+
+                Vue.set(this.$data.arr, 0, 100);
+                console.log(this.$data.arr); // [100, 2, 3, 4, 5]
+            },
+            change2: function (event) {
+                this.$set(this.$data.arr, 1, 300); // vue.set = this.$set 같은거임
+                console.log(this.$data.arr); // [100, 300, 2, 3, 4, 5]
+            },
+            change3: function (event) {
+                this.$data.arr.splice(0, 2, 500);
+            },
+            change4: function (event) {
+                this.$data.arr = [...this.$data.arr, 70];
+            },
+        }
+    });
+</script>
