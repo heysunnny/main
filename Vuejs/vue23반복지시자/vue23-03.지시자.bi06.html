@@ -21,6 +21,7 @@
     <hr>
 
     <div id="app" class="col-md-10 offset-md-1">
+        <button v-on:click="addBtn">추가</button>
         <table id="list" class="table-bordered">
             <thead>
                 <tr class="bg-warning text-white text-center">
@@ -40,9 +41,42 @@
             </tbody>
         </table>
     </div>
-
 </body>
 
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    //import axios from "axios";
+    
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            contacts: [
+                {name: '백현', tel:'920506', address:'exo'},
+                {name:'진혁', tel:'960608', address:'solo'},
+            ],
+        },
+        //template: ``,
+        methods: {
+            addBtn: function(event){
+                Vue.set(this.$data.contacts, this.$data.contacts.length, {name:'츄', tel:'001020', address:'LOONA'})
+            }
+        },
+        components: { }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+</script>

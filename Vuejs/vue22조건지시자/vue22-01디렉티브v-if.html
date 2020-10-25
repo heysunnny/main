@@ -69,6 +69,8 @@
     <h2>
         v-if/v-else 연습 3
         위의 2 예제를 결합하는 예제 입니다.
+        버튼을 클릭하면 awesome의 값을 true에서 false로, false에서 true로 반전시킨다.
+        = 토글 기능과 동일
     </h2>
     <div id="app3">
         <button v-on:click="clickBind">클릭</button>
@@ -80,7 +82,10 @@
         </div>
     </div>
 
-    <h2>v-if/v-else-if/v-else 연습 4 : 실습</h2>
+    <h2>
+        v-if/v-else-if/v-else 연습 4 : 실습
+        A > B > C > Not A/B/C 반복        
+    </h2>
     <div id="app5">
         <button v-on:click="clickBind">클릭</button>
         <span v-if="type === 1">
@@ -101,3 +106,124 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app1",
+        data: {
+            awesome: true,
+        },
+        //template: ``,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app2",
+        data: {
+            awesome: false, /* null, undefined, 0, "" 등도 false에 해당됨 */
+        },
+        //template: ``,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app3",
+        data: {
+            awesome: true,
+        },
+        //template: ``,
+        methods: {
+            clickBind: function (event) {
+                if (this.$data.awesome == true) {
+                    this.$data.awesome = false;
+                } else {
+                    this.$data.awesome = true;
+                }
+                // this.$data.awesome = !this.$data.awesome
+            }
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+
+    //import axios from "axios";
+    
+    new Vue({
+        /* edtmc^2w */
+        el: "#app5",
+        data: {
+            type: 1,
+        },
+        //template: ``,
+        methods: {
+            clickBind: function(event){
+                var aa = (this.$data.type + 1) % 4 ; // % - 나머지연산자
+                Vue.set( this.$data, "type", aa) ;
+                // 같은 식 this.$data.type = this.$data.type + 1;
+            }
+        },
+        components: { }, 
+        computed: {
+    
+        },
+        watch: {
+    
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+</script>
