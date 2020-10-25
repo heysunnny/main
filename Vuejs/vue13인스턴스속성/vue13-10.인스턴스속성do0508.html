@@ -61,3 +61,19 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {},
+        methods: {},
+
+    });
+</script>
+watch: {
+message: function(val) {
+console.log("message 값이 바뀌었다", val);
+this.$data.watchcopy = val; // Vue.set(this.$data, "watchcopy", val); 이랑 같음
+}
+// message = watch는 모니터링하고싶은 걸 앞에 쓴다
+}
