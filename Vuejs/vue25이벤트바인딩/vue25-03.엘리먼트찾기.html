@@ -11,6 +11,12 @@
 
     <!-- CSS import -->
     <link rel="stylesheet" href="../css/reset.css">
+    
+    <script>
+        var btnClick = function(event){
+            alert("btnClick");
+        };
+    </script>
 </head>
 
 <body>
@@ -21,10 +27,10 @@
       +───────────────────────────────────+─────────────────────+
       | 메소드 이름                                                          | 설명                                     |
       +───────────────────────────────────+─────────────────────+
-      | document.getElementById(아이디)                                      | 아이디를 사용해 객체 선택. 한개 리턴     |
-      | document.getElementsByName(이름)                                     | name 속성으로 객체 선택. 여러개 리턴     |
-      | document.getElementsByClassName(클래스)                              | class 속성으로 객체 선택. 여러개 리턴    |
-      | document.getElementsByTagName(이름)                                  | element 이름으로 객체 선택. 여러개 리턴  |
+      | document.getElementById(아이디)                                     | 아이디를 사용해 객체 선택. 한개 리턴     |
+      | document.getElementsByName(이름)                                 | name 속성으로 객체 선택. 여러개 리턴     |
+      | document.getElementsByClassName(클래스)                        | class 속성으로 객체 선택. 여러개 리턴    |
+      | document.getElementsByTagName(이름)                             | element 이름으로 객체 선택. 여러개 리턴  |
       | document.querySelectorAll(선택자)                                    | 선택자로 여러 개의 객체 선택             |
       | document.querySelector(선택자)                                       | 선택자를 사용해 객체 선택                |
       +───────────────────────────────────+─────────────────────+
@@ -34,7 +40,7 @@
     </pre>
 
     <div>
-        <input id="btn" type="button" value='엘리먼트 찾기'>
+        <input id="btn" type="button" value='엘리먼트 찾기' onClick="btnClick()">
         <hr>
 
         <input class='고전이벤트핸들러' type="button" value='엘리먼트 찾기'>
@@ -50,4 +56,4 @@
 </html>
 
 
-
+
