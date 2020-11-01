@@ -82,3 +82,83 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app1",
+        data: {
+            idA: "aa",
+            classA: null,
+            styleA: null,
+            message: "ljh",
+            imagePath: null,
+        },
+        //template: ``,
+        methods: {
+            clickBindId: function (event) {
+                this.$data.idA = "bb";
+            },
+            clickBindClass: function (evnet) {
+                this.$data.classA = "container";
+            },
+            clickBindStyle: function (event) {
+                this.$data.styleA = { color: 'pink', backgroundColor: "black" };
+            },
+            clickBindValue: function () {
+                this.$data.message = "babysun";
+            },
+            clickBindSrc: function () {
+                this.$data.imagePath = "../images/im1.jpg";
+            },
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+
+
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app2",
+        data: {
+            message: "aa",
+            imagePath: null,
+        },
+        //template: ``,
+        methods: {
+            clickBindSrc: function (event) {
+                this.$data.message = "새로고침";
+                this.$data.imagePath = "../images/action_refresh.gif"; x
+            },
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+</script>

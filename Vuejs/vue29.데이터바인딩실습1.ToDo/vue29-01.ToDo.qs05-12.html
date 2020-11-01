@@ -191,7 +191,31 @@
 </head>
 
 <body>
-    <pre>
+    <pre style="text-align:left;">
+
+    선 학습 필요 사항:
+        array.reduce() 사용법 
+        array.map() 사용법 
+        array.filter() 사용법 
+        array.findIndex() 사용법 
+        array.splice() 사용법 
+        
+        
+    todoItems 는 아래와 같다고 가정한다 
+    todoItems = [
+        { id: 1, todo: "영화보기", done: false },
+        { id: 2, todo: "주말 산책", done: true },
+        { id: 3, todo: "ES6 학습", done: false },
+        { id: 4, todo: "잠실 야구장", done: false }
+    ]
+    
+    기능 추가 
+    1. add 할 때 this.$data.todoItems 가 빈 배열인 경우 추가
+    2. add 후 input 태그에 입력된 값 지우기
+    3. 토글 할 때 findIndex 로 못 찾는 경우 방어 코드 추가
+    4. input 태그에 빈 문자열이 입력되는 경우는 배열에 추가되지 않도록 방어
+    5. todo 타이틀 바꾸기
+        
     </pre>
     <hr>
 
@@ -249,3 +273,119 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#todolistapp",
+        data: {
+            newTodoItem: null,
+            showModal: null,
+            todoItems: [
+                { id: 1, todo: "영화보기", done: false },
+                { id: 2, todo: "주말 산책", done: true },
+                { id: 3, todo: "ES6 학습", done: false },
+                { id: 4, todo: "잠실 야구장", done: false }
+            ]
+        },
+        //template: ``,
+        methods: {
+            checked: function (done) {
+                if (done) {
+                    return "checked"; // 또는 {checked: true}
+                } else {
+                    return ""; // 또는 {checked: false}
+                }
+            },
+            addTodo: function (event) {
+                //create
+
+                if (this.$data.newTodoItem && this.$data.newTodoItem.trim() !== "") {
+                    //max id 를 찾는 방법
+                    //1.array.reduce() 사용
+                    //2.array.map과 Math.max() 사용
+
+                    var maxObj = null;
+                    if (this.$data.todoItems.length === 0) {
+                        maxObj = {
+                            id: 0,
+                            todo: "",
+                            done: false,
+                        }
+                    } else {
+                        maxObj = this.$data.todoItems.reduce(function (prevItem, nextItem) {
+                            // 최대 id 값을 갖고 있는 item을 찾는다.
+                            return prevItem.id > nextItem.id ? prevItem : nextItem;
+                        });
+
+                    }
+                    console.log(maxObj);
+
+
+                    var newid = maxObj.id + 1;
+
+                    /*    
+                    this.$data.todoItems[this.$data.todoItems.length] = {
+                        id: newid,
+                       todo: this.$data.newTodoItem,
+                        done: false,
+                    }
+                  */
+                    Vue.set(
+                        this.$data.todoItems,
+                        this.$data.todoItems.length, {
+                        id: newid,
+                        todo: this.$data.newTodoItem,
+                        done: false,
+                    });
+
+                    // input 태그 초기화
+                    Vue.set(this.$data, "newTodoItem", "");
+                }
+            },
+            doneToggle: function (id) {
+                //update
+                //object array 에서 찾는 방법 findIndex() 사용 또는 filter() 사용 > 반환 값 다름
+                var index = this.$data.todoItems.findIndex(function (item) {
+                    if (item.id === id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    // 한줄로 쓰면 return item.id === id; 
+                });
+                if (index >= 0) {
+                    //this.$data.todoItems[index].done = !this.$data.todoItems[index].done;
+                    Vue.set(this.$data.todoItems[index], "done", !this.$data.todoItems[index].done);
+                }
+            },
+            removeTodo: function (id, index) {
+                //delete
+                this.$data.todoItems.splice(index, 1);
+            },
+            clearTodo: function (event) {
+                //delete - splice 사용 또는 array.map() 사용 
+                //this.$data.todoItems = [];
+                Vue.set(this.$data, "todoItems", []);
+
+            },
+
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+</script>
