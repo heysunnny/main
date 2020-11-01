@@ -25,15 +25,11 @@
         ];
 
         문제.
-        1. 박스를 만드는 전역 컴포넌트를 만들고 아래의 스타일을 적용하시오.
-        {
-        display: inline-block;
-        font-size: 3em;
-        border: 1px dashed blue;
-        padding: 10px 20px;
-        margin: 5px;
-        text-align:center;
-        }
+        1. 박스를 만드는 전역 컴포넌트 component-box 를 만들고 아래의 템플릿을 적용하시오.
+        <span
+            style="display:inline-block; font-size:3em; border:1px dashed blue; padding:10px 20px; margin:5px; text-align:center;">
+            {{num}}
+        </span>
         2. 버튼을 클릭할 때마다 전역 컴포넌트를 추가하시오.
 
         [참조]
@@ -62,3 +58,67 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    Vue.component("component-box", {
+        /* pdtmc^2w */
+        props: ["num"],
+        data: function () {
+            return {
+                spanstyle: {
+                    display: "inline-block",
+                    fontSize: "3em",
+                    border: "1px dashed blue",
+                    padding: "10px 20px",
+                    margin: "5px",
+                    textAlign: "center",
+                }
+            }
+        },
+        template: `
+        <span v-bind:style="spanstyle">
+            {{num}}
+        </span>
+    
+        `,
+        methods: {
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+    });
+
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            arr: [1, 2, 3, 4, 5]
+        },
+        //template: ``,
+        methods: {
+            clickAddBox: function (event) {
+                //this.$data.arr[this.$data.arr.length] = this.$data.arr.length + 1;
+                Vue.set(this.$data.arr, this.$data.arr.length, this.$data.arr.lenght + 1);
+            }
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });    
+</script>

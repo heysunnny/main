@@ -85,3 +85,58 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+
+  Vue.component("component-child", {
+    /* pdtmc^2w */
+    props: [],
+    data: function () {
+      return {}
+    },
+    template: `
+    <div class="component-child">
+      Child counter : {{ num }} <br>
+      <button name="child" v-on:click="addCounter">+</button>
+      <button name="child" v-on:click="subCounter">-</button>
+    </div>  
+      `,
+    methods: {
+
+    },
+    components: {},
+    computed: {
+
+    },
+    watch: {
+
+    },
+  });
+
+  //import axios from "axios";
+  
+  new Vue({
+      /* edtmc^2w */
+      el: "#app",
+      data: {
+  
+      },
+      //template: ``,
+      methods: {
+  
+      },
+      components: { }, 
+      computed: {
+  
+      },
+      watch: {
+  
+      },
+      mounted: function() {
+          console.log("mounted");
+      },
+      updated: function() {
+          console.log("updated");
+      },
+  });
+</script>

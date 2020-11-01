@@ -86,21 +86,11 @@
     <hr />
 
     <div id="app">
-        <header>
-            Header
-        </header>
-        <div id="content">
-            <p>Content</p>
-            <aside>
-                Aside
-            </aside>
-            <div id="content-list">
-                List
-            </div>
-        </div>
-        <footer>
-            Footer
-        </footer>
+        <component-header></component-header>
+        <component-content>
+
+        </component-content>
+        <component-footer></component-footer>
     </div>
 
 
@@ -109,3 +99,156 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+
+    var componentAside = {
+        /* pdtmc^2w */
+        props: [],
+        data: function () {
+            return {}
+        },
+        template: `
+        <aside>
+          Aside
+        </aside>
+        `,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+    };
+
+    var componentContentList = {
+        /* pdtmc^2w */
+        props: [],
+        data: function () {
+            return {}
+        },
+        template: `
+        <div id="content-list">
+                List
+        </div>    
+        `,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+    };
+
+    Vue.component("component-header", {
+        /* pdtmc^2w */
+        props: [],
+        data: function () {
+            return {}
+        },
+        template: `
+        <header>
+            Header
+        </header>
+    
+        `,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+    });
+
+    Vue.component("component-content", {
+        /* pdtmc^2w */
+        props: [],
+        data: function () {
+            return {}
+        },
+        template: `
+        <div id="content">
+            <p>Content</p>
+            <component-aside></component-aside>
+            <component-content-list></component-content-list>
+        </div>    
+        `,
+        methods: {
+
+        },
+        components: {
+            "component-aside": componentAside,
+            "component-content-list": componentContentList,
+        },
+        computed: {
+
+        },
+        watch: {
+
+        },
+    });
+
+    Vue.component("component-footer", {
+        /* pdtmc^2w */
+        props: [],
+        data: function () {
+            return {}
+        },
+        template: `
+        <footer>
+            Footer
+        </footer> 
+    
+        `,
+        methods: {
+
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+    });
+
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+
+        },
+        //template: ``,
+        methods: {
+
+        },
+        components: {
+        },
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+</script>
