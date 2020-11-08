@@ -63,9 +63,9 @@
                     "lint": "vue-cli-service lint"
                 },
             step 09. ls             # package.json 존재하는지 확인 
-            step 10. npm run serve  # package.json 이 보이는 곳에서 실행해야 됨
+            step 10. npm run serve  # package.json 이 보이는 곳에서 서버를 실행해야 됨
 
-            step 11. npm run build  # dist/ 폴더가 생성됨. 웹팩 빌드.
+            step 11. npm run build  # dist/ 폴더가 생성됨 = 배포할 파일들
 
             step 12. npm run lint   # 코드 표준화 검사
 
@@ -100,7 +100,7 @@
 
         4. 프로젝트 폴더 생성
            프로젝트
-            ├─ dist                     # 빌드 결과물 폴더
+            ├─ dist                     # 빌드된 결과물이 저장되는 폴더. 실제 배포되는 파일들
             ├─ node_modules             # npm 모듈(패키지) 저장 폴더
             ├─ public                   # 배포 버전을 빌드할 때 사용하는 파일.
             │   └─ index.html
@@ -151,16 +151,7 @@
 
 
         6. 라우팅 설정 
-            step 6-1. ~/src/router/index.js 수정
-
-                아래 코드 추가 
-                {
-                    path: "/todo",
-                    name: "Todo",
-                    component: () => import("../views/Todo.vue")
-                }
-                
-            step 6-2. ~/src/App.vue 에 router-link 추가
+             step 6-1. ~/src/App.vue 에 router-link 추가
                 <div id="app">
                     <div id="nav">
                         <router-link to="/">Home</router-link> | 
@@ -169,6 +160,17 @@
                     </div>
                     <router-view />
                 </div>
+
+            step 6-2. ~/src/router/index.js 수정
+
+                아래 코드 추가 
+                {
+                    path: "/todo",
+                    name: "Todo",
+                    component: () => import("../views/Todo.vue")
+                }
+                
+
 
         7. 컴포넌트 1차 구현: style 과 html 추가
             step 7-1. src/components/todo/TodoHeader.vue 에 style 과 html 추가

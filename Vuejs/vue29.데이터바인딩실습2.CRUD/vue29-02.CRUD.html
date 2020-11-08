@@ -34,14 +34,42 @@
 <body>
     <pre>
         CRUD 방법을 학습한다.
+         
+        아래의 데이터를 table형태로 출력하고 
+        power가 300이상인 사람은 글자색을 red, bold스타일로 출력하시오
 
+        작업 순서
+        1. Read 작업
+        2. Delete 작업
+        3. Update 작업 Up/Down
+        4. Insert 작업
+
+        같이할 작업
+        1. 실행시 바인딩할 데이터
+        [
+            {id:1, name: "슈퍼맨", power: 100},
+            {id:2, name: "아쿠아맨", power: 300},
+            {id:3, name: "스파이더맨", power: 500},
+            {id:4, name: "배트맨", power: 30},
+        ]
+
+        2. "Add " 버튼을 클릭했을 때 최대 id 값을 구하는 방법
         Object Array 에서 최대값 구하는 방법은 구글 검색을 이용한다.
         ==> 검색조건: javascript object array max
         방법1. .map() 를 사용하는 방법
-        방법2. .reducer()
+        방법2. .reduce() 를 사용하는 방법
+
+        개별 작업
+        1. Insert 작업에 power 에 대한 유효성 검증 기능 추가        
+        power에 숫자가 아닌 값이 들어오면
+        1-1. alert로 "숫자만 입력 가능합니다." 띄우고
+        1-2. power를 빈 값으로 초기화
+        1-3. power input 태그에 focus 주기
+
+
     </pre>
     <div id="app">
-        <!-- list 데이터를 table형태로 출력하고 power가 300이상인 사람은 글자색을 red로 bold스타일로 출력하세요. -->
+
         <h1>Creat Read Update Delete</h1>
         <div>
             <label for="">Name : </label>
@@ -49,7 +77,7 @@
         </div>
         <div>
             <label for="">Power : </label>
-            <input type="text" v-model="user.power">
+            <input type="text" v-model="user.power" ref="myuserpower">
         </div>
         <button v-on:click="insert">Add</button>
         <hr>
@@ -79,3 +107,122 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    //import axios from "axios";
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            user: {
+                id: null,
+                name: null,
+                power: null,
+            },
+            list: [
+                { id: 1, name: "슈퍼맨", power: 100 },
+                { id: 2, name: "아쿠아맨", power: 300 },
+                { id: 3, name: "스파이더맨", power: 500 },
+                { id: 4, name: "배트맨", power: 30 },
+            ],
+        },
+        //template: ``,
+        methods: {
+            insert: function (event) {
+                // power에 대한 유효성 검증 & focus 주기
+                // 예를 들어 power에 숫자가 아닌 값이 들어오면 
+                // 1. alert 띄우고
+                // 2. 빈 값으로 초기화
+                // 3. 해당 태그에 focus 주기
+
+
+                var power = Number(this.$data.user.power);
+                if (isNaN(power)) {
+
+                    // 문자가 있는 경우
+                    window.alert("숫자만 입력 가능합니다.");
+                    this.$data.user.power = "";
+                    this.$refs.myuserpower.focus(); // 태그에 ref="myuserpower" 추가
+
+                    return;
+                }
+
+                // 자바스크립트 정규식을 이용한 숫자 판별
+                var regex = /^[0-9.]/g
+                if (!regex.test(this.$data.user.power)) {
+
+                    // 문자가 있는 경우
+                    window.alert("숫자만 입력 가능합니다.");
+                    this.$data.user.power = "";
+                    this.$refs.myuserpower.focus(); // 태그에 ref="myuserpower" 추가
+
+                    return;
+                }
+
+                // this.$data.list에서 최대 id 값을 찾기
+                var max = this.$data.list.reduce(function (prev, next) {
+                    /* 
+                    최대 id 값을 return 하는것이 목표
+                    prev =  { id: 1, name: "슈퍼맨", power: 100 },
+                    next =  { id: 2, name: "아쿠아맨", power: 300 },
+                    순차적으로 앞뒤로 비교
+                    */
+                    return prev.id > next.id ? prev.id : next.id;
+                });
+
+                // 추가할 user 객체 만들기
+                var user = {
+                    id: max + 1,
+                    name: this.$data.user.name,
+                    power: Number(this.$data.user.power),
+                };
+
+                // this.$data.list 에 위에서 만든 user 객체 추가하기 
+                // 방식1. this.$data.list.push() 방식
+                // 방식2. Vue.set() 방식
+                // this.$data.list.push(user);
+                // this.$data.list[this.$data.list.length] = user;
+                Vue.set(this.$data.list, this.$data.list.length, user);
+
+                // input 박스 초기화
+                // this.$data.user = null;
+                Vue.set(this.$data, "user", "");
+
+
+            },
+            doUp: function (index) {
+                // power값 +100
+                //this.$data.list[index].power = this.$data.list[index].power + 100;
+                Vue.set(this.$data.list[index], "power", this.$data.list[index].power + 100);
+            },
+            doDown: function (index) {
+                // power값 -50
+                Vue.set(this.$data.list[index], "power", this.$data.list[index].power - 100);
+            },
+            doEdit: function (index) {
+                // 선택한 사람의 정보를 input에 보여주기
+                this.$data.user = this.$data.list[index];
+
+            },
+            doDel: function (index) {
+                // 배열에서 삭제 = splice(배열의 방번호, 개수) 사용
+                this.$data.list.splice(index, 1);
+            },
+        },
+        components: {},
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function () {
+            console.log("mounted");
+            this.$ref.myinput.focus(); // 커서 깜빡이도록
+        },
+        updated: function () {
+            console.log("updated");
+        },
+    });
+</script>

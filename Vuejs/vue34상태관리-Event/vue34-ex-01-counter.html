@@ -90,9 +90,10 @@
 
   Vue.component("component-child", {
     /* pdtmc^2w */
-    props: [],
+    props: ["num"],
     data: function () {
-      return {}
+      return {
+      }
     },
     template: `
     <div class="component-child">
@@ -102,6 +103,13 @@
     </div>  
       `,
     methods: {
+      addCounter: function (event) {
+        this.$emit("add-counter", +10);
+        // this.$emit("이벤트명", 이벤트값1, 이벤트값2)
+      },
+      subCounter: function (event) {
+        this.$emit("sub-counter", -10);
+      }
 
     },
     components: {},
@@ -114,29 +122,45 @@
   });
 
   //import axios from "axios";
-  
+
   new Vue({
-      /* edtmc^2w */
-      el: "#app",
-      data: {
-  
+    /* edtmc^2w */
+    el: "#app",
+    data: {
+      counter: 0,
+    },
+    //template: ``,
+    methods: {
+      addCounter: function (event) {
+        if (typeof event == "number") {
+          Vue.set(this.$data, "counter", this.$data.counter + event);
+        } else {
+          Vue.set(this.$data, "counter", this.$data.counter + 1);
+
+        }
       },
-      //template: ``,
-      methods: {
-  
-      },
-      components: { }, 
-      computed: {
-  
-      },
-      watch: {
-  
-      },
-      mounted: function() {
-          console.log("mounted");
-      },
-      updated: function() {
-          console.log("updated");
-      },
+      subCounter: function (event) {
+        if (typeof event == "number") {
+          Vue.set(this.$data, "counter", this.$data.counter + event);
+        } else {
+          Vue.set(this.$data, "counter", this.$data.counter - 1);
+
+        }
+      }
+
+    },
+    components: {},
+    computed: {
+
+    },
+    watch: {
+
+    },
+    mounted: function () {
+      console.log("mounted");
+    },
+    updated: function () {
+      console.log("updated");
+    },
   });
 </script>
