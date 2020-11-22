@@ -116,19 +116,33 @@
         static defaultProps = {  /*  props의 디폴트 값 설정 */ }
         static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
         state = {
-            bgcolor: {
-                backgroundColor: "#58B3FF",
+            letter: {
+                padding: "10px",
+                margin: "10px",
+                color: "#333333",
+                display: "inline-block",
+                fontFamily: "monospace",
+                fontSize: "32px",
+                textAlign: "center",
             }
+            // 바뀌지 않는 스타일은 state에 선언하고 
+            // 변경되거나 부모로부터 받아오는건 render에 선언하기
         }
 
         render() {
             const bgstyle = {
                 backgroundColor: this.props.bgcolor,
             }
+            const totstyle = {
+                ...this.state.letter,
+                ...bgstyle, // 객체가 묶여있어서 묶인 애들 풀기 위해 앞에 ... 써야함
+                fontSize: "100px", // 이런식으로 계속 추가해도 ㅇㅋ
+            }
             return (
-                <div className="letter" style={bgstyle}>
-                    {this.props.letter}
+                <div style={totstyle}>
+                    {this.props.children}
                 </div>
+                // children은 태그 사이의 html
             )
         }
     }
@@ -136,11 +150,11 @@
     //export default rt15-03.LetterCard
     ReactDOM.render(
         <div>
-            <LetterCard bgcolor={"#58B3FF"} letter={"A"} />
-            <LetterCard bgcolor={"#FF605F"} letter={"E"} />
-            <LetterCard bgcolor={"#FFD52E"} letter={"I"} />
-            <LetterCard bgcolor={"#49DD8E"} letter={"O"} />
-            <LetterCard bgcolor={"#AE99FF"} letter={"U"} />
+            <LetterCard bgcolor={"#58B3FF"} ><span>A</span></LetterCard>
+            <LetterCard bgcolor={"#FF605F"} >E</LetterCard>
+            <LetterCard bgcolor={"#FFD52E"} >I</LetterCard>
+            <LetterCard bgcolor={"#49DD8E"} >O</LetterCard>
+            <LetterCard bgcolor={"#AE99FF"} >U</LetterCard>
         </div>
         , document.getElementById('app')
     )
