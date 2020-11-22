@@ -15,7 +15,7 @@
     <xmp>
         Redux 코딩 순서
         0. Redux 플러그인 추가 or import.
-        1. state  만들기
+        1. state 만들기
         2. reducer 만들기
         3. store 만들기
         4. action 만들기
@@ -32,3 +32,89 @@
 </body>
 
 </html>
+
+<!-- react 플러그인 include   -->
+<!-- 주의: 사이트를 배포할 때는 'development.js'를 'production.min.js'로 대체하세요. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로 변환 */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React} from "react"; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from "react-dom"; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js"> /* import {Redux} from "redux"; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.1.3/react-redux.js">/* import {ReactRedux} from "react-redux"; */</script>
+<script type="text/babel">
+
+    // 1. state  만들기 (읽기 전용으로 만들어야 함)
+    const states = {
+        counter: 0,
+        // const는 읽기 전용
+    }
+
+    // 2. reducer 만들기
+    // 첫 번째 인자는 무조건 state
+    // 두 번째 인자는 무조건 action
+    function reducerCounter(state = states, action) {
+        switch (action.type) {
+            case "counter/increment":
+                return {
+                    ...state,
+                    counter: state.counter + 1,
+                }
+                break;
+            case "counter/decrement":
+                return {
+                    ...state,
+                    counter: state.counter - 1,
+                }
+                break;
+            default:
+                return state;
+        }
+    }
+
+    // 3. store 만들기 Redux.createStore(reducer, preloadedState, enhancer)
+    let store = Redux.createStore(reducerCounter);
+
+    // 4. action 만들기
+    const action = {
+        counterIncrement(task) {
+            return {
+                type: "counter/increment", // 소속/행위
+                playload: { task },
+                error: {},
+                meta: {}
+            }
+        },
+        counterDecrement(task) {
+            return {
+                type: "counter/decrement", // 소속/행위
+                playload: { task },
+                error: {},
+                meta: {}
+            }
+        }
+    }
+
+    // 5. store 구독하기
+    store.subscribe(() => {
+        console.log(store.getState()); // store에서 state를 가져오려면 
+
+        //
+        if (document) {
+            var app = document.getElementById("app")
+            let p = document.createElement("p")
+            p.innerHTML = JSON.stringify(store.getState());
+            app.appendChild(p)
+        }
+    })
+
+    // 6. store에 action dispatch 하기
+    store.dispatch(action.counterIncrement()) // { type:"counter/increment"}
+    store.dispatch({ type: "counter/increment" }) 
+    store.dispatch(action.counterIncrement()) // { type:"counter/increment"}
+    store.dispatch(action.counterIncrement()) // { type:"counter/increment"}
+    store.dispatch(action.counterDecrement()) // { type:"counter/decrement"}
+
+
+</script>

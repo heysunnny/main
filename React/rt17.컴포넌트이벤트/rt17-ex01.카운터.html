@@ -148,44 +148,32 @@
     console.log(ReactDOM)
 
     class CounterLabel extends React.Component {
-
-        static defaultProps = {  /*  props의 디폴트 값 설정 */ }
-        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
-        state = {
-
-        }
-        constructor(props) {
-            super()
-            // this 바인딩
-        }
-        componentDidMount() {
-            // 마운트 완료 후에  : 페이지 load 될 때 한번
-        }
-        componentDidUpdate(prevProps, prevState) {
-            // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
-        }
-        componentWillUnmount() {
-            // 언마운트 완료 후에 : 페이지 unload 될 때 한번
-        }
-        handler = (event) => {
-            // 이벤트 핸들러는 화살표 함수로 만들면 this를 bind() 생략해도 된다
-            console.log(event.target)//
+        style = {
+            styleText: {
+                fontSize: "72px",
+                fontFamily: "sans-serif",
+                color: "#333333",
+                fontWeight: "bold",
+            }
         }
         render() {
             return (
-                <div>
-
+                <div style={this.style.styleText}>
+                    {this.props.count}
                 </div>
             )
         }
     }
 
     class CounterContainer extends React.Component {
-
-        static defaultProps = {  /*  props의 디폴트 값 설정 */ }
-        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
         state = {
-
+            count: 0,
+            num: null,
+            val: null,
+        }
+        style = {
+            styleBackground: {},
+            styleButton: {}
         }
         constructor(props) {
             super()
@@ -197,23 +185,55 @@
         componentDidUpdate(prevProps, prevState) {
             // 업데이트 완료 후에 : 여러번, state 가 변경될 때마다
         }
-        componentWillUnmount() {
-            // 언마운트 완료 후에 : 페이지 unload 될 때 한번
-        }
-        handler = (event) => {
+        increase = (event) => {
             // 이벤트 핸들러는 화살표 함수로 만들면 this를 bind() 생략해도 된다
             console.log(event.target)//
+            /* 
+
+            {
+                ...this.state,
+                count: this.state.count + 1
+            }
+            
+            는(=)
+
+            count: 0,
+            num: null,
+            val: null,
+
+            count: this.state.count+1
+            
+            */
+
+            if (event.shiftKey == true) {
+                // 10 더하기
+                this.setState({
+                    ...this.state,
+                    count: this.state.count + 10
+                })
+            } else {
+                // 1 더하기
+                this.setState({
+                    ...this.state,
+                    count: this.state.count + 1
+                })
+            }
 
         }
         render() {
             return (
-                <div>
-
+                <div style={this.style.styleBackground}>
+                    <CounterLabel { ...this.state } { ...this.props } ></CounterLabel>
+                    <button style={this.style.styleButton} onClick={this.increase}>+</button>
                 </div>
-            )
+            );
         }
     }
 
-//export default CounterContainer 
+    //export default CounterContainer 
+    ReactDOM.render(
+        <CounterContainer></CounterContainer>
+        ,
+        document.getElementById("app"))
 
 </script>
